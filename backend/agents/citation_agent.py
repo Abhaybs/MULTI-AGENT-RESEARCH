@@ -77,10 +77,11 @@ def citation_agent(state: ResearchState):
     # FORMAT REFERENCES
     # =========================
 
+    # Use proper markdown line breaks (two spaces + newline)
     formatted_references = "\n"
 
     for idx, source in enumerate(unique_sources, start=1):
-        formatted_references += f"[{idx}] {source['title']}\n{source['url']}\n\n"
+        formatted_references += f"[{idx}] {source['title']}  \n{source['url']}\n\n"
 
     # =========================
     # CITATION PROMPT
@@ -94,7 +95,7 @@ Your task is to enhance the following research report by:
 1. Adding inline citations where relevant (use format: [1], [2], [3])
 2. Maintaining readability
 3. Preserving technical quality
-4. Keeping the existing References section with proper numbering
+4. Adding a properly formatted References section at the end
 5. Ensuring citations align with claims
 
 IMPORTANT RULES:
@@ -103,8 +104,24 @@ IMPORTANT RULES:
 - Keep the report professional
 - Add citations naturally using [number] format
 - Keep markdown formatting intact
-- The References section MUST keep the [1], [2], [3] numbering format
-- Each reference should be on its own line with the format: [number] Title followed by URL
+
+CRITICAL FORMATTING REQUIREMENT FOR REFERENCES SECTION:
+The References section MUST use this EXACT format - YOU MUST put each reference on separate lines with proper line breaks using two spaces and newline (markdown format):
+
+## References
+
+[1] AR-RAG: Autoregressive Retrieval Augmentation for Image Generation  
+https://arxiv.org/pdf/2506.06962v3
+
+[2] Intelligent Human-Machine Interaction Strategies  
+https://arxiv.org/pdf/2504.13684v1
+
+[3] Factually: Exploring Wearable Fact-Checking  
+https://arxiv.org/pdf/2504.17020v1
+
+IMPORTANT: Each URL must be on its OWN LINE (use two spaces before newline in markdown).  
+DO NOT put everything on one long line.  
+Each [number] Title should be followed by TWO SPACES, then a newline, then the URL on the next line.
 
 =========================
 REPORT
@@ -118,7 +135,7 @@ AVAILABLE REFERENCES (USE THESE NUMBERS)
 
 {formatted_references}
 
-REMINDER: Preserve the [1], [2], [3] format in the References section!
+REMINDER: Format references EXACTLY as shown in the example above - each on separate lines with proper markdown line breaks (two spaces + newline)!
 """
 
     response = llm.invoke(prompt)

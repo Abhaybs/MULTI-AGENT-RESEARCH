@@ -11,6 +11,7 @@ An intelligent multi-agent research assistant powered by LangGraph that automati
 - ⚡ **Parallel Processing**: Concurrent web searches for faster results
 - 🎨 **Modern UI**: Real-time status updates with Next.js frontend
 - 📊 **Live Monitoring**: Watch all agents process data in real-time
+- 🕐 **Real-Time Streaming Logs**: Timestamped, color-coded progress updates with auto-scroll
 
 ## 🏗️ Architecture
 
@@ -54,7 +55,8 @@ An intelligent multi-agent research assistant powered by LangGraph that automati
 - **Next.js 16**: React framework
 - **TypeScript**: Type-safe development
 - **Tailwind CSS v4**: Modern styling
-- **Server-Sent Events (SSE)**: Real-time updates
+- **Framer Motion**: Smooth animations
+- **Server-Sent Events (SSE)**: Real-time streaming logs
 - **React Markdown**: Report rendering
 
 ## 📋 Prerequisites
@@ -131,8 +133,26 @@ Frontend runs on: `http://localhost:3000`
 
 1. Open http://localhost:3000 in your browser
 2. Enter a research topic (e.g., "Quantum Computing Applications")
-3. Watch the 8 agents work in real-time
-4. View the final report with inline citations and references
+3. Click the send button to start research
+4. Watch the **Live Activity Logs** panel with real-time timestamps:
+   ```
+   [16:21:45] 🚀 Starting research on: "Quantum Computing"
+   [16:21:46] 🧠 Planner Agent: Breaking down research topic into sections...
+   [16:21:46] ✅ Planner Agent: Generated 7 research sections
+   [16:21:47] 🔍 Research Agent: Starting web research...
+   ```
+5. Monitor agent status panel - see each agent light up as it works
+6. View the final report with inline citations and references
+
+### Streaming Logs Features
+
+- **Timestamped logs**: Every event shows precise `[HH:MM:SS]` timestamp
+- **Color-coded levels**: Info (blue), Success (green), Warning (yellow), Error (red)
+- **Auto-scroll**: Logs automatically scroll to show latest activity
+- **Smooth animations**: Logs appear with fade-in effects
+- **Progress details**: See section counts, paper counts, word counts, citation counts
+
+See [STREAMING_LOGS.md](STREAMING_LOGS.md) for detailed documentation.
 
 ## 📁 Project Structure
 
@@ -178,6 +198,7 @@ Research assisstant/
 - **Papers Analyzed**: ~35 papers per research topic
 - **Web Sources**: ~35 web results per topic
 - **Parallel Processing**: 7× faster research vs sequential
+- **Live Logs**: 25+ real-time progress updates per research session
 
 ## 🔧 Configuration
 
@@ -279,6 +300,16 @@ npm run dev
 - Check backend is running on port 8000
 - Verify no CORS errors in browser console
 - Restart both servers
+
+### Logs Not Streaming
+
+**Issue**: Logs panel not showing real-time updates
+
+**Solution**:
+- Check browser console for SSE connection errors
+- Verify backend API is sending events: `curl -N http://localhost:8000/research -X POST -H "Content-Type: application/json" -d '{"query":"test"}'`
+- Clear browser cache and hard refresh (Ctrl+Shift+R)
+- Test with the included script: `python backend/test_streaming_logs.py`
 
 ## 🤝 Contributing
 
