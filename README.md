@@ -337,3 +337,34 @@ For questions or feedback, please open an issue on GitHub.
 ---
 
 ⭐ Star this repo if you find it helpful!
+```mermaid
+graph TD
+    %% Define start and end points
+    START((START))
+    END((END))
+
+    %% Define the agents
+    planner[Planner Agent]
+    researcher[Researcher Agent]
+    paper_analyzer[Paper Analyzer Agent]
+    insight_extractor[Insight Extractor Agent]
+    source_ranker[Source Ranker Agent]
+    critic[Critic Agent]
+    writer[Writer Agent]
+    citation_agent[Citation Agent]
+
+    %% Define the workflow sequence
+    START --> planner
+    planner --> researcher
+    researcher --> paper_analyzer
+    paper_analyzer --> insight_extractor
+    insight_extractor --> source_ranker
+    source_ranker --> critic
+    critic --> writer
+    writer --> citation_agent
+    citation_agent --> END
+
+    %% Optional styling for better visuals
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef endpoint fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px;
+    class START,END endpoint;
